@@ -23,7 +23,7 @@ define dovecot::auth::passwdfile (
         default_fields  => $default_fields,
         override_fields => $override_fields,
     } ),
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
   }
 
   if $ensure == 'present' {

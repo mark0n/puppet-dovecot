@@ -16,14 +16,12 @@ class dovecot::postgres (
     owner   => root,
     group   => dovecot,
     require => Package['dovecot-pgsql'],
-    before  => Exec['dovecot'],
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
   }
 
   package {'dovecot-pgsql':
     ensure => installed,
-    before => Exec['dovecot'],
-    notify => Service['dovecot']
+    notify => Class['dovecot::service'],
   }
 
   dovecot::config::dovecotcfmulti { 'sqlauth':

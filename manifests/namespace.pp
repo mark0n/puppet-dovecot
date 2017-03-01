@@ -37,6 +37,6 @@ define dovecot::namespace (
         subscriptions => $subscriptions,
         mailboxes     => $mailboxes,
     } ),
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
   }
 }

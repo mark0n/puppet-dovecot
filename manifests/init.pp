@@ -1,28 +1,17 @@
 # dovecot class
 class dovecot(
-  $packages,
-  $package_configfiles,
+  String $package_ensure,
+  Boolean $package_manage,
+  Array[String] $package_name,
+  Boolean $service_enable,
+  Enum['running','stopped'] $service_ensure,
+  Boolean $service_manage,
+  String $service_name,
+  Optional[String] $service_provider,
 ) {
+  contain ::dovecot::install
+  contain ::dovecot::service
 
-  $mailpackages = $::osfamily ? {
-    default  => ['dovecot-core'],
-    'Debian' => ['dovecot-core'],
-    'Redhat' => ['dovecot',]
-  }
-
-  ensure_packages([$mailpackages], { 'configfiles' => $package_configfiles })
-
-  exec { 'dovecot':
-    command     => 'echo "dovecot packages are installed"',
-    path        => '/usr/sbin:/bin:/usr/bin:/sbin',
-    logoutput   => true,
-    refreshonly => true,
-    require     => Package[$mailpackages],
-  }
-
-  service { 'dovecot':
-    ensure  => running,
-    require => Exec['dovecot'],
-    enable  => true,
-  }
+  Class['::dovecot::install'] ->
+  Class['::dovecot::service']
 }

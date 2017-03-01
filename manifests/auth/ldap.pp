@@ -49,7 +49,7 @@ define dovecot::auth::ldap (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
     content => epp('dovecot/auth/ldap.epp', {
         passdb              => $passdb_enabled,
         static              => $static,
@@ -66,7 +66,7 @@ define dovecot::auth::ldap (
     owner   => $owner,
     group   => $group,
     mode    => $mode,
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
     content => epp('dovecot/auth/dovecot-ldap.epp', {
         hosts            => $hosts,
         uris             => $uris,

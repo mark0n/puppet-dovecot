@@ -20,7 +20,7 @@ define dovecot::auth::system (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    notify  => Service['dovecot'],
+    notify  => Class['dovecot::service'],
     source  => $source,
     content => epp('dovecot/auth/system.epp', {
         passdb => $passdb,
