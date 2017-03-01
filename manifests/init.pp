@@ -1,7 +1,7 @@
 # dovecot class
 class dovecot(
-  $packages             = undef,
-  $package_configfiles  = 'keep'
+  $packages,
+  $package_configfiles,
 ) {
 
   $mailpackages = $::osfamily ? {

@@ -20,16 +20,17 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=2.7.20 <4.0.0"
+      "version_requirement": ">=4.0.0"
     }
   ],
-  "name": "mjhas-dovecot",
+  "name": "um-dovecot",
   "version": "1.0.1",
-  "author": "mjhas",
+  "author": "Angel L. Mateo",
   "summary": "This Dovecot Module installs dovecot and configures it using Augeas",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"}
   ],
+  "data_provider": "hiera",
   "source": "https://github.com/mjhas/dovecot.git",
   "project_page": "https://github.com/mjhas/dovecot",
   "license": "Apache License 2.0"

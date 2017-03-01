@@ -1,0 +1,5 @@
+---
+dovecot::packages:
+  - 'dovecot-core'
+
+dovecot::package_configfiles: 'keep'
