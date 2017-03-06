@@ -8,10 +8,17 @@ class dovecot(
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Boolean $enable_imap,
+  Boolean $enable_pop3,
+  Boolean $enable_lmtp,
+  Boolean $enable_managesieved,
+  Hash $plugins,
 ) {
   contain ::dovecot::install
+  contain ::dovecot::config
   contain ::dovecot::service
 
   Class['::dovecot::install'] ->
+  Class['::dovecot::config'] ~>
   Class['::dovecot::service']
 }

@@ -1,11 +1,9 @@
 # 10-logging.conf
 # See README.md for usage
 class dovecot::logging (
-  Hash[String, Optional[String]] $options = {},
-  Hash[String, Optional[String]] $plugins = {}
+  Hash[String, Optional[String]] $options,
+  Hash[String, Optional[String]] $plugins,
 ) {
-  include ::dovecot
-
   dovecot::config::dovecotcfhash {'logging':
     config_file => 'conf.d/10-logging.conf',
     options     => $options,
