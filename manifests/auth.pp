@@ -7,6 +7,7 @@ class dovecot::auth (
   Array[Hash] $userdb,
   Hash $ldapfile,
   Hash $passwdfile,
+  Hash $sqlfile,
 ) inherits dovecot {
   dovecot::config::dovecotcfhash {'auth':
     config_file => 'conf.d/10-auth.conf',
@@ -47,6 +48,9 @@ class dovecot::auth (
       # haber más de un argumento...
       'passwd-file': { }
       'pam': { }
+      'sql': {
+        $require = Dovecot::Auth::Sqlfile[$opts['args']]
+      }
       'static': { }
       default: {
         fail("Driver ${opts['driver']} not supported")
@@ -100,6 +104,12 @@ class dovecot::auth (
 
   $passwdfile.each |$name, $opts| {
     dovecot::auth::passwdfile {$name:
+      * => $opts,
+    }
+  }
+
+  $sqlfile.each |$name, $opts| {
+    dovecot::auth::sqlfile {$name:
       * => $opts,
     }
   }

@@ -20,6 +20,7 @@ dovecot::auth::passdb: []
 dovecot::auth::userdb: []
 dovecot::auth::ldapfile: {}
 dovecot::auth::passwdfile: {}
+dovecot::auth::sqlfile: {}
 
 dovecot::logging::options: {}
 dovecot::logging::plugins: {}
@@ -60,3 +61,7 @@ dovecot::managesieved::inet_listeners: {}
 dovecot::managesieved::package_name: 'dovecot-managesieved'
 
 dovecot::ldap::package_name: 'dovecot-ldap'
+
+dovecot::mysql::package_name: 'dovecot-mysql'
+dovecot::pgsql::package_name: 'dovecot-pgsql'
+dovecot::sqlite::package_name: 'dovecot-sqlite'
