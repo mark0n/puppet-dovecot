@@ -34,7 +34,6 @@ define dovecot::auth::ldapfile (
   Optional[String] $iterate_attrs                                         = undef,
   Optional[String] $iterate_filter                                        = undef,
   Optional[String] $default_pass_scheme                                   = undef,
-  Optional[String] $default_fields                                        = undef,
 ) {
   include ::dovecot::ldap
 
