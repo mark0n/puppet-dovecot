@@ -14,22 +14,22 @@ define dovecot::auth::passdb (
   Optional[Dovecot::Result] $result_success                       = undef,
   Optional[Enum['default','yes','no']] $auth_verbose              = undef,
 ) {
-  concat::fragment {"passdb $name":
-    order                 => $order,
-    target                => '/etc/dovecot/conf.d/auth-databases.conf.ext',
-    content               => epp('dovecot/auth/passdb.epp', {
-      driver              => $driver,
-      args                => $args,
-      default_fields      => $default_fields,
-      override_fields     => $override_fields,
-      deny                => $deny,
-      master              => $master,
-      pass                => $pass,
-      skip                => $skip,
-      result_failure      => $result_failure,
-      result_internalfail => $result_internalfail,
-      result_success      => $result_success,
-      auth_verbose        => $auth_verbose,
-    })
+  concat::fragment {"passdb ${name}":
+    order   => $order,
+    target  => "${dovecot::config_dir}/conf.d/auth-databases.conf.ext",
+    content => epp('dovecot/auth/passdb.epp', {
+        driver              => $driver,
+        args                => $args,
+        default_fields      => $default_fields,
+        override_fields     => $override_fields,
+        deny                => $deny,
+        master              => $master,
+        pass                => $pass,
+        skip                => $skip,
+        result_failure      => $result_failure,
+        result_internalfail => $result_internalfail,
+        result_success      => $result_success,
+        auth_verbose        => $auth_verbose,
+    }),
   }
 }

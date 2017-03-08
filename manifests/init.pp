@@ -8,6 +8,7 @@ class dovecot(
   Boolean $service_manage,
   String $service_name,
   Optional[String] $service_provider,
+  Stdlib::Absolutepath $config_dir,
   Boolean $enable_imap,
   Boolean $enable_pop3,
   Boolean $enable_lmtp,

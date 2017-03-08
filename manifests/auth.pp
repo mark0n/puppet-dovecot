@@ -26,7 +26,7 @@ class dovecot::auth (
   }
 
   $default_database = 'auth-databases.conf.ext'
-  concat {"/etc/dovecot/conf.d/${default_database}":
+  concat {"${dovecot::config_dir}/conf.d/${default_database}":
     owner          => 'root',
     group          => 'root',
     mode           => '0644',
@@ -91,7 +91,7 @@ class dovecot::auth (
     onlyif      => "values include not_include ${default_database}",
     changes     => [ "set include[last()+1] ${default_database}" ],
     require     => [
-      Concat["/etc/dovecot/conf.d/${default_database}"],
+      Concat["${dovecot::config_dir}/conf.d/${default_database}"],
       Dovecot::Config::Dovecotcfhash['auth'],
     ],
   }

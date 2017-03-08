@@ -16,8 +16,8 @@ define dovecot::namespace (
   Hash $mailboxes                                   = {},
 ) {
   $path = $name ? {
-    'inbox' => '/etc/dovecot/conf.d/15-mailboxes.conf',
-    default => "/etc/dovecot/conf.d/15-namespace_${name}.conf",
+    'inbox' => "${dovecot::config_dir}/conf.d/15-mailboxes.conf",
+    default => "${dovecot::config_dir}/conf.d/15-namespace_${name}.conf",
   }
 
   file {$path:
