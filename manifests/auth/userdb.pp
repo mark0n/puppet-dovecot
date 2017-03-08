@@ -5,7 +5,7 @@ define dovecot::auth::userdb (
   Optional[String] $args                                          = undef,
   Optional[String] $default_fields                                = undef,
   Optional[String] $override_fields                               = undef,
-  Optional[Enum['never','authenticated','unauthenticated']] $skip = undef,
+  Optional[Enum['never','found','notfound']] $skip = undef,
   Optional[Dovecot::Result] $result_failure                       = undef,
   Optional[Dovecot::Result] $result_internalfail                  = undef,
   Optional[Dovecot::Result] $result_success                       = undef,
