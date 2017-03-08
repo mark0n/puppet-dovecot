@@ -29,6 +29,9 @@ dovecot::logging::plugins: {}
 dovecot::mail::options: {}
 dovecot::mail::namespace: {}
 
+dovecot::master::options: {}
+dovecot::master::services: {}
+
 dovecot::lda::options: {}
 dovecot::lda::mail_plugins: ~
 

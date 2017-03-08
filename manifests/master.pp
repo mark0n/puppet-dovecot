@@ -1,8 +1,8 @@
 # 10-master.conf
 # See README.md for usage
 class dovecot::master (
-  Hash[String, Optional[String]] $options = {},
-  Hash[String, Optional[Hash[String, Optional[Variant[String,Integer]]]]] $services = {}
+  Hash[String, Optional[String]] $options,
+  Hash[String, Optional[Hash[String, Optional[Variant[String,Integer]]]]] $services,
 ) {
   include ::dovecot
 
