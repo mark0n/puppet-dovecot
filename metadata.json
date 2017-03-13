@@ -1,16 +1,15 @@
 {
+  "name": "um-dovecot",
+  "version": "1.0.0",
+  "author": "Angel L. Mateo",
+  "license": "Apache License 2.0",
+  "summary": "This Dovecot Module installs dovecot and configures it using Augeas",
+  "source": "https://github.com/amateo/puppet-dovecot.git",
+  "project_page": "https://github.com/amateo/puppet-dovecot.git",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">=4.14.0"}
+  ],
   "operatingsystem_support": [
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Redhat",
-      "operatingsystemrelease": [
-      ]
-    },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
@@ -23,15 +22,9 @@
       "version_requirement": ">=4.0.0"
     }
   ],
-  "name": "um-dovecot",
-  "version": "1.0.1",
-  "author": "Angel L. Mateo",
-  "summary": "This Dovecot Module installs dovecot and configures it using Augeas",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"}
   ],
-  "data_provider": "hiera",
-  "source": "https://github.com/mjhas/dovecot.git",
-  "project_page": "https://github.com/mjhas/dovecot",
-  "license": "Apache License 2.0"
+  "description": "Dovecot module. It is tested in Ubuntu, but it should work too on Debian. It is not tested on redhat based systems, but it could work whithout major changes. This module was started from a form from https://github.com/mjhas/dovecot.git.",
+  "data_provider": "hiera"
 }
