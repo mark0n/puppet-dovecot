@@ -1,0 +1,71 @@
+---
+dovecot::package_ensure: 'present'
+dovecot::package_manage: true
+dovecot::package_name:
+  - 'dovecot-core'
+dovecot::service_enable: true
+dovecot::service_ensure: 'running'
+dovecot::service_manage: true
+dovecot::service_name: 'dovecot'
+dovecot::service_provider: ~
+dovecot::config_dir: '/etc/dovecot'
+dovecot::enable_imap: false
+dovecot::enable_pop3: false
+dovecot::enable_lmtp: false
+dovecot::enable_managesieved: false
+dovecot::plugins: {}
+
+dovecot::auth::options: {}
+dovecot::auth::unix_listeners: {}
+dovecot::auth::passdb: []
+dovecot::auth::userdb: []
+dovecot::auth::ldapfile: {}
+dovecot::auth::passwdfile: {}
+dovecot::auth::sqlfile: {}
+
+dovecot::logging::options: {}
+dovecot::logging::plugins: {}
+
+dovecot::mail::options: {}
+dovecot::mail::namespace: {}
+
+dovecot::master::options: {}
+dovecot::master::services: {}
+
+dovecot::lda::options: {}
+dovecot::lda::mail_plugins: ~
+
+dovecot::ssl::options: {}
+
+dovecot::imap::options: {}
+dovecot::imap::protocol_options: {}
+dovecot::imap::service_options: {}
+dovecot::imap::login_options: {}
+dovecot::imap::inet_listeners: {}
+dovecot::imap::package_name: 'dovecot-imapd'
+
+dovecot::pop3::options: {}
+dovecot::pop3::protocol_options: {}
+dovecot::pop3::service_options: {}
+dovecot::pop3::login_options: {}
+dovecot::pop3::inet_listeners: {}
+dovecot::pop3::package_name: 'dovecot-pop3d'
+
+dovecot::lmtp::options: {}
+dovecot::lmtp::protocol_options: {}
+dovecot::lmtp::inet_listeners: {}
+dovecot::lmtp::unix_listeners: {}
+dovecot::lmtp::package_name: 'dovecot-lmtpd'
+
+dovecot::managesieved::options: {}
+dovecot::managesieved::protocol_options: {}
+dovecot::managesieved::service_options: {}
+dovecot::managesieved::login_options: {}
+dovecot::managesieved::inet_listeners: {}
+dovecot::managesieved::package_name: 'dovecot-managesieved'
+
+dovecot::ldap::package_name: 'dovecot-ldap'
+
+dovecot::mysql::package_name: 'dovecot-mysql'
+dovecot::pgsql::package_name: 'dovecot-pgsql'
+dovecot::sqlite::package_name: 'dovecot-sqlite'

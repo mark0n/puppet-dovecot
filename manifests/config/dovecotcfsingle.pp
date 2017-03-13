@@ -6,23 +6,22 @@ define dovecot::config::dovecotcfsingle(
   $value       = undef,
 ) {
   Augeas {
-    context => "/files/etc/dovecot/${config_file}",
-    notify  => Service['dovecot'],
-    require => Exec['dovecot'],
+    context => "/files/${dovecot::config_dir}/${config_file}",
+    notify  => Class['dovecot::service'],
   }
 
   case $ensure {
     present: {
       if !$value {
-        fail("dovecot /etc/dovecot/${config_file} ${option} value not set")
+        fail("dovecot ${dovecot::config_dir}/${config_file} ${option} value not set")
       }
-      augeas { "dovecot /etc/dovecot/${config_file} ${option}":
+      augeas { "dovecot ${dovecot::config_dir}/${config_file} ${option}":
         changes => "set ${option} '${value}'",
       }
     }
 
     absent: {
-      augeas { "dovecot /etc/dovecot/${config_file} ${option}":
+      augeas { "dovecot ${dovecot::config_dir}/${config_file} ${option}":
         changes => "rm ${option}",
       }
     }
