@@ -1,0 +1,41 @@
+<%- |
+  String $driver,
+  Optional[String] $args = undef,
+  Optional[String] $default_fields = undef,
+  Optional[String] $override_fields = undef,
+  Optional[String] $skip = undef,
+  Optional[String] $result_failure = undef,
+  Optional[String] $result_internalfail = undef,
+  Optional[String] $result_success = undef,
+  Optional[String] $auth_verbose = undef,
+| -%>
+userdb {
+  driver = <%= $driver %>
+<%- if $args { -%>
+  args = <%= $args %>
+<%- } -%>
+<%- if $default_fields { -%>
+  default_fields = <%= $default_fields %>
+<%- } -%>
+<%- if $override_fields { -%>
+  override_fields = <%= $override_fields %>
+<%- } -%>
+
+<%- if $skip { -%>
+  skip = <%= $skip %>
+<%- } -%>
+
+<%- if $result_failure { -%>
+  result_failure = <%= $result_failure %>
+<%- } -%>
+<%- if $result_internalfail { -%>
+  result_internalfail = <%= $result_internalfail %>
+<%- } -%>
+<%- if $result_success { -%>
+  result_success = <%= $result_success %>
+<%- } -%>
+
+<%- if $auth_verbose { -%>
+  auth_verbose = <%= $auth_verbose %>
+<%- } -%>
+}

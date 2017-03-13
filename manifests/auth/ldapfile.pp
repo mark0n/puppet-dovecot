@@ -1,10 +1,6 @@
 #
 # See README.md for usage
-define dovecot::auth::ldap (
-  Enum['present','absent'] $ensure                                        = 'present',
-  Boolean $static                                                         = false,
-  Boolean $prefetch                                                       = false,
-  String $path                                                            = '/etc/dovecot/dovecot-ldap.conf.ext',
+define dovecot::auth::ldapfile (
   String $owner                                                           = 'root',
   String $group                                                           = 'root',
   String $mode                                                            = '0600',
@@ -38,35 +34,13 @@ define dovecot::auth::ldap (
   Optional[String] $iterate_attrs                                         = undef,
   Optional[String] $iterate_filter                                        = undef,
   Optional[String] $default_pass_scheme                                   = undef,
-  Optional[String] $static_args                                           = undef,
-  Optional[String] $default_fields                                        = undef,
 ) {
-  ensure_packages('dovecot-ldap')
+  include ::dovecot::ldap
 
-  $passdb_enabled = $pass_attrs or $pass_filter
-  file {"/etc/dovecot/conf.d/${name}":
-    ensure  => $ensure,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    notify  => Service['dovecot'],
-    content => epp('dovecot/auth/ldap.epp', {
-        passdb              => $passdb_enabled,
-        static              => $static,
-        prefetch            => $prefetch,
-        path                => $path,
-        default_pass_scheme => $default_pass_scheme,
-        static_args         => $static_args,
-        default_fields      => $default_fields,
-    } ),
-  }
-
-  file {$path:
-    ensure  => $ensure,
+  file {$name:
     owner   => $owner,
     group   => $group,
     mode    => $mode,
-    notify  => Service['dovecot'],
     content => epp('dovecot/auth/dovecot-ldap.epp', {
         hosts            => $hosts,
         uris             => $uris,
@@ -98,21 +72,6 @@ define dovecot::auth::ldap (
         iterate_attrs    => $iterate_attrs,
         iterate_filter   => $iterate_filter,
     }),
-  }
-
-  if $ensure == 'present' {
-    dovecot::config::dovecotcfmulti {"Add auth ${name}":
-      config_file => 'conf.d/10-auth.conf',
-      onlyif      => "values include not_include ${name}",
-      changes     => [
-        "set include[last()+1] ${name}",
-      ],
-    }
-  } else {
-    dovecot::config::dovecotcfmulti {"remove include ${name}":
-      config_file => 'conf.d/10-auth.conf',
-      onlyif      => "values include include ${name}",
-      changes     => [ "rm include[. = \"${name}\"]" ],
-    }
+    require => Class['::dovecot::ldap'],
   }
 }

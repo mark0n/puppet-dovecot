@@ -5,12 +5,11 @@ define dovecot::config::dovecotcfmulti(
   $onlyif=undef,
 ) {
   Augeas {
-    context => "/files/etc/dovecot/${config_file}",
-    notify  => Service['dovecot'],
-    require => Exec['dovecot'],
+    context => "/files${dovecot::config_dir}/${config_file}",
+    notify  => Class['dovecot::service'],
   }
 
-  augeas { "dovecot /etc/dovecot/${config_file} ${name}":
+  augeas { "dovecot ${dovecot::config_dir}/${config_file} ${name}":
     changes => $changes,
     onlyif  => $onlyif,
   }
