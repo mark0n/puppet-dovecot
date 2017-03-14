@@ -393,6 +393,19 @@ configuration.
 
 Default value: {}
 
+##### `service_options`
+
+A has of options to se inside
+
+```
+service lmtp {
+...
+}
+```
+configuration.
+
+Default value: {}
+
 ##### `inet_listeners`
 
 A hash of inet_listeners to configure for lmtp service.

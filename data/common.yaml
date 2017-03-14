@@ -53,6 +53,7 @@ dovecot::pop3::package_name: 'dovecot-pop3d'
 
 dovecot::lmtp::options: {}
 dovecot::lmtp::protocol_options: {}
+dovecot::lmtp::service_options: {}
 dovecot::lmtp::inet_listeners: {}
 dovecot::lmtp::unix_listeners: {}
 dovecot::lmtp::package_name: 'dovecot-lmtpd'
