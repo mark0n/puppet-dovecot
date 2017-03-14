@@ -17,6 +17,7 @@ dovecot::plugins: {}
 
 dovecot::auth::options: {}
 dovecot::auth::unix_listeners: {}
+dovecot::auth::service_options: {}
 dovecot::auth::passdb: []
 dovecot::auth::userdb: []
 dovecot::auth::ldapfile: {}

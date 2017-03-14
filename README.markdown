@@ -152,6 +152,19 @@ A hash of options to set in '/etc/dovecot/conf.d/10-auth.conf'. Default value: {
 
 A hash of unix_listeners (and their options) for the auth service. Default value: {} (default listeners are used)
 
+##### `service_options`
+
+A has of options to se inside
+
+```
+service lmtp {
+...
+}
+```
+configuration.
+
+Default value: {}
+
 ##### `passdb`
 
 An array of hashes with password databases. Default value: []

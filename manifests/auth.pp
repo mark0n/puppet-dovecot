@@ -3,6 +3,7 @@
 class dovecot::auth (
   Hash[String, Optional[String]] $options,
   Hash[String, Hash] $unix_listeners,
+  Hash[String, Optional[Variant[String,Integer]]] $service_options,
   Array[Hash] $passdb,
   Array[Hash] $userdb,
   Hash $ldapfile,
@@ -16,6 +17,7 @@ class dovecot::auth (
 
   dovecot::master::service {'auth':
     ensure  => 'present',
+    options => $service_options,
   }
 
   # Configure unix_listeners included in $unix_listeners
