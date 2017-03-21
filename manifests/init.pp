@@ -14,6 +14,7 @@ class dovecot(
   Boolean $enable_lmtp,
   Boolean $enable_managesieved,
   Hash $plugins,
+  Hash $files,
 ) {
   contain ::dovecot::install
   contain ::dovecot::config

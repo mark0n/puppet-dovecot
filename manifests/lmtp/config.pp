@@ -7,6 +7,7 @@ class dovecot::lmtp::config {
 
   dovecot::master::service {'lmtp':
     ensure  => 'present',
+    options     => $dovecot::lmtp::service_options,
   }
 
   # Configure inet_listeners included in $inet_listeners

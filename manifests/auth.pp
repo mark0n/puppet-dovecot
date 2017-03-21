@@ -3,8 +3,9 @@
 class dovecot::auth (
   Hash[String, Optional[String]] $options,
   Hash[String, Hash] $unix_listeners,
-  Array[Hash] $passdb,
-  Array[Hash] $userdb,
+  Hash[String, Optional[Variant[String,Integer]]] $service_options,
+  Variant[Array[Hash],Hash] $passdb,
+  Variant[Array[Hash],Hash] $userdb,
   Hash $ldapfile,
   Hash $passwdfile,
   Hash $sqlfile,
@@ -16,6 +17,7 @@ class dovecot::auth (
 
   dovecot::master::service {'auth':
     ensure  => 'present',
+    options => $service_options,
   }
 
   # Configure unix_listeners included in $unix_listeners
@@ -33,56 +35,115 @@ class dovecot::auth (
     ensure_newline => true,
   }
 
-  range(0,size($passdb)-1).each |$k| {
-    $order = 50+$k
-    $opts = $passdb[$k]
+  if $passdb =~ Array[Hash] {
+    range(0,size($passdb)-1).each |$k| {
+      $order = 50+$k
+      $opts = $passdb[$k]
 
-    case $opts['driver'] {
-      'ldap': {
-        $require = [
-          Class['dovecot::ldap'],
-          Dovecot::Auth::Ldapfile[$opts['args']],
-        ]
+      case $opts['driver'] {
+        'ldap': {
+          $require = [
+            Class['dovecot::ldap'],
+            Dovecot::Auth::Ldapfile[$opts['args']],
+          ]
+        }
+        # TODO: Programar un require del passwd-file, pero como puede
+        # haber más de un argumento...
+        'passwd-file': { }
+        'pam': { }
+        'sql': {
+          $require = Dovecot::Auth::Sqlfile[$opts['args']]
+        }
+        'static': { }
+        default: {
+          fail("Driver ${opts['driver']} not supported")
+        }
       }
-      # TODO: Programar un require del passwd-file, pero como puede
-      # haber más de un argumento...
-      'passwd-file': { }
-      'pam': { }
-      'sql': {
-        $require = Dovecot::Auth::Sqlfile[$opts['args']]
-      }
-      'static': { }
-      default: {
-        fail("Driver ${opts['driver']} not supported")
+      dovecot::auth::passdb {"${order}":
+        order   => "${order}",
+        require => $require,
+        *       => $opts,
       }
     }
-    dovecot::auth::passdb {"${order}":
-      order   => "${order}",
-      require => $require,
-      *       => $opts,
+  } else {
+    $passdb_keys = keys($passdb)
+    range(0,size($passdb_keys)-1).each |$k| {
+      $order = 50+$k
+      $opts = $passdb[$passdb_keys[$k]]
+
+      case $opts['driver'] {
+        'ldap': {
+          $require = [
+            Class['dovecot::ldap'],
+            Dovecot::Auth::Ldapfile[$opts['args']],
+          ]
+        }
+        # TODO: Programar un require del passwd-file, pero como puede
+        # haber más de un argumento...
+        'passwd-file': { }
+        'pam': { }
+        'sql': {
+          $require = Dovecot::Auth::Sqlfile[$opts['args']]
+        }
+        'static': { }
+        default: {
+          fail("Driver ${opts['driver']} not supported")
+        }
+      }
+      dovecot::auth::passdb {"${order}":
+        order   => "${order}",
+        require => $require,
+        *       => $opts,
+      }
     }
   }
 
-  range(0,size($userdb)-1).each |$k| {
-    $order = 70+$k
-    $opts = $userdb[$k]
+  if $userdb =~ Array[Hash] {
+    range(0,size($userdb)-1).each |$k| {
+      $order = 70+$k
+      $opts = $userdb[$k]
 
-    case $opts['driver'] {
-      'ldap': {
-        $require = [
-          Class['dovecot::ldap'],
-          Dovecot::Auth::Ldapfile[$opts['args']],
-        ]
+      case $opts['driver'] {
+        'ldap': {
+          $require = [
+            Class['dovecot::ldap'],
+            Dovecot::Auth::Ldapfile[$opts['args']],
+          ]
+        }
+        /static|prefetch/: { }
+        default: {
+          fail("Driver ${opts['driver']} not supported")
+        }
       }
-      /static|prefetch/: { }
-      default: {
-        fail("Driver ${opts['driver']} not supported")
+      dovecot::auth::userdb {"${order}":
+        order   => "${order}",
+        require => $require,
+        *       => $opts,
       }
     }
-    dovecot::auth::userdb {"${order}":
-      order   => "${order}",
-      require => $require,
-      *       => $opts,
+  } else {
+    $userdb_keys = keys($userdb)
+    range(0,size($userdb_keys)-1).each |$k| {
+      $order = 70+$k
+      $opts = $userdb[$userdb_keys[$k]]
+
+      case $opts['driver'] {
+        'ldap': {
+          $require = [
+            Class['dovecot::ldap'],
+            Dovecot::Auth::Ldapfile[$opts['args']],
+          ]
+        }
+        /static|prefetch/: { }
+        default: {
+          fail("Driver ${opts['driver']} not supported")
+        }
+      }
+      dovecot::auth::userdb {"${order}":
+        order   => "${order}",
+        require => $require,
+        *       => $opts,
+      }
     }
   }
 
