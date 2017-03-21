@@ -147,6 +147,12 @@ class dovecot::auth (
     }
   }
 
+  dovecot::config::dovecotcfmulti {'Remove default system auth':
+    config_file => 'conf.d/10-auth.conf',
+    onlyif      => "values include include auth-system.conf.ext",
+    changes     => [ "rm include[ . = \"auth-system.conf.ext\" ]" ],
+  }
+
   dovecot::config::dovecotcfmulti {'Add default auth':
     config_file => 'conf.d/10-auth.conf',
     onlyif      => "values include not_include ${default_database}",
