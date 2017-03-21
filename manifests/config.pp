@@ -28,4 +28,10 @@ class dovecot::config inherits dovecot {
       * => $opts,
     }
   }
+
+  $dovecot::files.each |$name, $opts| {
+    dovecot::config::file {$name:
+      * => $opts,
+    }
+  }
 }

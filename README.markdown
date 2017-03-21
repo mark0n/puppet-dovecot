@@ -136,6 +136,10 @@ A hash with plugins and their configuration that should be enabled in dovecot. V
 
 This option is the same than manually calling ```dovecot::plugin``` for your plugins.
 
+##### `files`
+
+A hash with files to be included in dovecot configuration. These file will be created as file resources. Valid options: a hash o valid file resources. Default value: {}
+
 ### `dovecot::auth`
 
 This class is the responsible of configuring auth in dovecot. It is the one configuring the file '/etc/dovecot/conf.d/10-auth.conf'.
@@ -151,6 +155,19 @@ A hash of options to set in '/etc/dovecot/conf.d/10-auth.conf'. Default value: {
 ##### `unix_listeners
 
 A hash of unix_listeners (and their options) for the auth service. Default value: {} (default listeners are used)
+
+##### `service_options`
+
+A has of options to se inside
+
+```
+service lmtp {
+...
+}
+```
+configuration.
+
+Default value: {}
 
 ##### `passdb`
 
@@ -386,6 +403,19 @@ A hash of options to set inside
 
 ```
 protocol lmtp {
+...
+}
+```
+configuration.
+
+Default value: {}
+
+##### `service_options`
+
+A has of options to se inside
+
+```
+service lmtp {
 ...
 }
 ```
