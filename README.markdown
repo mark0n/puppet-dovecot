@@ -237,7 +237,7 @@ A hash of options to set in '/etc/dovecot/conf.d/10-master.conf'. Default value:
 
 A hash of services to configure at '/etc/dovecot/conf.d/10-master.conf'. Default value: {}
 
-This class is rarely used because services could be enabled by directly including its corresponding class.
+This parameter is rarely used because most of common services could be enabled by directly including its corresponding class.
 
 ### `dovecot::lda`
 
