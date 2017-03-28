@@ -2,7 +2,7 @@
 # See README.md for usage
 class dovecot::master (
   Hash[String, Optional[String]] $options,
-  Hash[String, Optional[Hash[String, Optional[Variant[String,Integer]]]]] $services,
+  Hash[String, Hash] $services,
 ) {
   include ::dovecot
 
@@ -12,14 +12,9 @@ class dovecot::master (
   }
 
   # Configure services included in $services
-  $services.each |String $s, Optional[Hash[String,Optional[Variant[String,Integer]]]] $v| {
-    $ensure = $v ? {
-      undef   => 'absent',
-      default => 'present',
-    }
+  $services.each |String $s, Optional[Hash] $v| {
     dovecot::master::service {$s:
-      ensure  => $ensure,
-      options => $v,
+      * => $v,
     }
   }
 }
