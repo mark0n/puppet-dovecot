@@ -128,6 +128,7 @@ class dovecot::auth (
       $opts = $userdb[$userdb_keys[$k]]
 
       case $opts['driver'] {
+        'passwd-file': { }
         'ldap': {
           $require = [
             Class['dovecot::ldap'],
