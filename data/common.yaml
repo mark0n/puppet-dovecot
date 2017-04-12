@@ -13,6 +13,12 @@ dovecot::enable_imap: false
 dovecot::enable_pop3: false
 dovecot::enable_lmtp: false
 dovecot::enable_managesieved: false
+dovecot::enable_ssl: false
+dovecot::enable_auth: true
+dovecot::enable_logging: true
+dovecot::enable_mail: true
+dovecot::enable_master: true
+dovecot::enable_lda: false
 dovecot::plugins: {}
 dovecot::files: {}
 
