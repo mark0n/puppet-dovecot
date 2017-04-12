@@ -158,13 +158,13 @@ Setting a true value for this option is the same than manually including class `
 
 ##### `enable_ssl`
 
-Enable SSL configuration. Valid options: true or false. Default value: true.
+Enable SSL configuration. Valid options: true or false. Default value: false.
 
 Setting a true value for this option is the same than manually including class ```dovecot::ssl``` in your manifests.
 
 ##### `enable_lda`
 
-Enable LDA configuration. Valid options: true or false. Default value: true.
+Enable LDA configuration. Valid options: true or false. Default value: false.
 
 Setting a true value for this option is the same than manually including class ```dovecot::lda``` in your manifests.
 
