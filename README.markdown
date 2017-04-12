@@ -68,6 +68,8 @@ include dovecot::imap
 
 This is the main class. It installs and configure dovecot and its main components.
 
+For configuration, it, by default, includes ```dovecot::auth```, ```dovecot::logging```, ```dovecot::mail``` and ```dovecot::master```, so if you want to pass parameters to these classes using the ```class``` notation, you should manually disable this include by setting as ```false``` the ```enable_auth```, ```enable_logging```, ```enable_mail``` and/or ```enable_master``` parameters. If you are confortable passing parameters from hiera, you could ignore these parameters.
+
 #### Parameters
 
 ##### `package_ensure`
@@ -129,6 +131,42 @@ Setting a true value for this option is the same than manually including class `
 Enable ManageSieve service in dovecot to manage users' Sieve script collection. Valid options: true or false. Default value: false.
 
 Setting a true value for this option is the same than manually including class ```dovecot::managesieved``` in your manifests.
+
+##### `enable_auth`
+
+Enable authentication configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::auth``` in your manifests.
+
+##### `enable_logging`
+
+Enable logging configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::logging``` in your manifests.
+
+##### `enable_mail`
+
+Enable mail configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::mail``` in your manifests.
+
+##### `enable_master`
+
+Enable master configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::master``` in your manifests.
+
+##### `enable_ssl`
+
+Enable SSL configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::ssl``` in your manifests.
+
+##### `enable_lda`
+
+Enable LDA configuration. Valid options: true or false. Default value: true.
+
+Setting a true value for this option is the same than manually including class ```dovecot::lda``` in your manifests.
 
 ##### `plugins`
 
