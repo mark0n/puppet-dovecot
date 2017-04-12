@@ -1,11 +1,24 @@
 #
 class dovecot::config inherits dovecot {
-  contain ::dovecot::auth
-  contain ::dovecot::logging
-  contain ::dovecot::mail
-  contain ::dovecot::master
-  contain ::dovecot::lda
-  contain ::dovecot::ssl
+  if $dovecot::enable_auth == true {
+    contain ::dovecot::auth
+  }
+
+  if $dovecot::enable_logging == true {
+    contain ::dovecot::logging
+  }
+
+  if $dovecot::enable_mail == true {
+    contain ::dovecot::mail
+  }
+
+  if $dovecot::enable_master == true {
+    contain ::dovecot::master
+  }
+
+  if $dovecot::enable_lda == true {
+    contain ::dovecot::lda
+  }
 
   if $dovecot::enable_imap == true {
     contain ::dovecot::imap
@@ -21,6 +34,10 @@ class dovecot::config inherits dovecot {
 
   if $dovecot::enable_managesieved == true {
     contain ::dovecot::managesieved
+  }
+
+  if $dovecot::enable_ssl == true {
+    contain ::dovecot::ssl
   }
 
   $dovecot::plugins.each |$name, $opts| {

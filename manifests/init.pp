@@ -13,6 +13,12 @@ class dovecot(
   Boolean $enable_pop3,
   Boolean $enable_lmtp,
   Boolean $enable_managesieved,
+  Boolean $enable_ssl,
+  Boolean $enable_auth,
+  Boolean $enable_logging,
+  Boolean $enable_mail,
+  Boolean $enable_master,
+  Boolean $enable_lda,
   Hash $plugins,
   Hash $files,
 ) {
