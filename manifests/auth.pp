@@ -37,7 +37,7 @@ class dovecot::auth (
 
   if $passdb =~ Array[Hash] {
     range(0,size($passdb)-1).each |$k| {
-      $order = 50+$k
+      $order = sprintf('%d', 50+$k)
       $opts = $passdb[$k]
 
       case $opts['driver'] {
@@ -74,7 +74,7 @@ class dovecot::auth (
   } else {
     $passdb_keys = keys($passdb)
     range(0,size($passdb_keys)-1).each |$k| {
-      $order = 50+$k
+      $order = sprintf('%d', 50+$k)
       $opts = $passdb[$passdb_keys[$k]]
 
       case $opts['driver'] {
@@ -112,7 +112,7 @@ class dovecot::auth (
 
   if $userdb =~ Array[Hash] {
     range(0,size($userdb)-1).each |$k| {
-      $order = 70+$k
+      $order = sprintf('%d', 70+$k)
       $opts = $userdb[$k]
 
       case $opts['driver'] {
@@ -141,7 +141,7 @@ class dovecot::auth (
   } else {
     $userdb_keys = keys($userdb)
     range(0,size($userdb_keys)-1).each |$k| {
-      $order = 70+$k
+      $order = sprintf('%d', 70+$k)
       $opts = $userdb[$userdb_keys[$k]]
 
       case $opts['driver'] {
