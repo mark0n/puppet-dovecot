@@ -48,19 +48,25 @@ class dovecot::auth (
           ]
         }
         # TODO: Programar un require del passwd-file, pero como puede
-        # haber más de un argumento...
-        'passwd-file': { }
-        'pam': { }
+        # haber mas de un argumento...
+        'passwd-file': {
+          $require = undef
+        }
+        'pam': {
+          $require = undef
+        }
         'sql': {
           $require = Dovecot::Auth::Sqlfile[$opts['args']]
         }
-        'static': { }
+        'static': {
+          $require = undef
+        }
         default: {
           fail("Driver ${opts['driver']} not supported")
         }
       }
-      dovecot::auth::passdb {"${order}":
-        order   => "${order}",
+      dovecot::auth::passdb {$order:
+        order   => $order,
         require => $require,
         *       => $opts,
       }
@@ -79,19 +85,25 @@ class dovecot::auth (
           ]
         }
         # TODO: Programar un require del passwd-file, pero como puede
-        # haber más de un argumento...
-        'passwd-file': { }
-        'pam': { }
+        # haber mas de un argumento...
+        'passwd-file': {
+          $require = undef
+        }
+        'pam': {
+          $require = undef
+        }
         'sql': {
           $require = Dovecot::Auth::Sqlfile[$opts['args']]
         }
-        'static': { }
+        'static': {
+          $require = undef
+        }
         default: {
           fail("Driver ${opts['driver']} not supported")
         }
       }
-      dovecot::auth::passdb {"${order}":
-        order   => "${order}",
+      dovecot::auth::passdb {$order:
+        order   => $order,
         require => $require,
         *       => $opts,
       }
@@ -104,19 +116,24 @@ class dovecot::auth (
       $opts = $userdb[$k]
 
       case $opts['driver'] {
+        'passwd-file': {
+          $require = undef
+        }
         'ldap': {
           $require = [
             Class['dovecot::ldap'],
             Dovecot::Auth::Ldapfile[$opts['args']],
           ]
         }
-        /static|prefetch/: { }
+        /static|prefetch/: {
+          $require = undef
+        }
         default: {
           fail("Driver ${opts['driver']} not supported")
         }
       }
-      dovecot::auth::userdb {"${order}":
-        order   => "${order}",
+      dovecot::auth::userdb {$order:
+        order   => $order,
         require => $require,
         *       => $opts,
       }
@@ -128,20 +145,24 @@ class dovecot::auth (
       $opts = $userdb[$userdb_keys[$k]]
 
       case $opts['driver'] {
-        'passwd-file': { }
+        'passwd-file': {
+          $require = undef
+        }
         'ldap': {
           $require = [
             Class['dovecot::ldap'],
             Dovecot::Auth::Ldapfile[$opts['args']],
           ]
         }
-        /static|prefetch/: { }
+        /static|prefetch/: {
+          $require = undef
+        }
         default: {
           fail("Driver ${opts['driver']} not supported")
         }
       }
-      dovecot::auth::userdb {"${order}":
-        order   => "${order}",
+      dovecot::auth::userdb {$order:
+        order   => $order,
         require => $require,
         *       => $opts,
       }
@@ -150,7 +171,7 @@ class dovecot::auth (
 
   dovecot::config::dovecotcfmulti {'Remove default system auth':
     config_file => 'conf.d/10-auth.conf',
-    onlyif      => "values include include auth-system.conf.ext",
+    onlyif      => 'values include include auth-system.conf.ext',
     changes     => [ "rm include[ . = \"auth-system.conf.ext\" ]" ],
   }
 
